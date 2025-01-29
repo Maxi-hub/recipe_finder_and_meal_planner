@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../button/Button';
+import s from '../../App.module.css';
 
 export const RecipeDetail = () => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ export const RecipeDetail = () => {
 
     const dish = recipes.find(item => item.strMeal === dishName);
 
-    const num = 20; // Quantity of ingredients in API
+    const num = 20; // Max quantity of ingredients in API
     const listOfIngredients = [];
 
     for (let i = 1; i <= num; i++) {
@@ -33,17 +34,17 @@ export const RecipeDetail = () => {
     })
 
     return (
-        <div>
-            <Button handlerClick={goBack}>Go back</Button>
+        <div className={s.recipeDetailBox}>
+            <Button className={`${s.button} ${s.goBackButton}`} handlerClick={goBack}>Go back</Button>
             {
-                <div>
+                <div className={s.recipeBox}>
                     <h2>{dish.strMeal}</h2>
-                    <img className="recipeImg" src={dish.strMealThumb} alt="" />
+                    <img className={s.recipeImg} src={dish.strMealThumb} alt="" />
                     <p>Category: {dish.strCategory}</p>
                     <p><b>Recipe:</b> {dish.strInstructions}</p>
-                    <div>
+                    <div className={s.ingredientsBox}>
                         <h3>Ingredients:</h3>
-                        <ul>
+                        <ul className={s.ingredientsList}>
                             {listItems}
                         </ul>
                     </div>

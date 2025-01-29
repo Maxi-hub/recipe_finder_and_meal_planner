@@ -4,6 +4,7 @@ import { Button } from "../button/Button";
 import { RecipesList } from "../recipes/RecipesList";
 import { setRecipes } from "../../reducers/recipeSlice";
 import PropTypes from "prop-types";
+import s from '../../App.module.css';
 
 export const Form = () => {
     const [inputDish, setInputDish] = useState('');
@@ -61,7 +62,7 @@ export const Form = () => {
     return (
         <form onSubmit={handlerSubmit}>
             <input className="" type="text" value={inputDish} onChange={(e) => setInputDish(e.target.value)} placeholder="Salad" />
-            <Button handlerClick={handleGetDish}>search</Button>
+            <Button className={s.button} handlerClick={handleGetDish}>search</Button>
             <div>
                 <RecipesList recipes={dishes} message={message} />
             </div>

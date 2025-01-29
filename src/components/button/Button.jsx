@@ -1,5 +1,7 @@
-export const Button = ({handlerClick, children}) => {
+import s from '../../App.module.css';
+
+export const Button = ({handlerClick, children, className}) => {
   return (
-    <button onClick={handlerClick}>{children}</button>
+    <button className={`${s.button} ${className}`} onClick={handlerClick}>{children}</button>
   )
 };
