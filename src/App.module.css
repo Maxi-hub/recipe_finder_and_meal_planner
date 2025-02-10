@@ -5,6 +5,7 @@ li {
 h1 {
   margin: 0;
   padding: 20px;
+  text-transform: uppercase;
 }
 
 a {
@@ -18,6 +19,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: cursive;
 }
 
 input {
@@ -28,6 +30,7 @@ input {
   border: 1px solid teal;
   margin-right: 11px;
   outline: none;
+  font-family: cursive;
 }
 
 .button {
@@ -38,23 +41,31 @@ input {
   border: 1px solid teal;
   box-shadow: 5px 5px 5px #409292;
   background-color: white;
+  font-family: cursive;
 }
 
 .dishButton {
   border: none;
   box-shadow: none;
+  margin-bottom: 15px;
+  box-shadow: 3px 3px 5px 1px #409292;
 }
 
-.dishButton:hover {
-  background-color: #ffcd39;
+.recipeTitle {
+  padding: 0 15px;
 }
 
 .recipeImg {
-  width: 350px;
-  height: 350px;
+  /* width: 320px; */
+  width: 100%;
+  /* height: 320px; */
   margin-bottom: 15px;
-  box-shadow: 0 0 12px 7px #f7f7f7;
-  border-radius: 12%;
+  /* border-radius: 12%; */
+}
+
+.recipeImgDetail {
+  width: 400px;
+  border-radius: 5%;
 }
 
 .recipeList {
@@ -72,13 +83,21 @@ input {
 
 .recipeBlock {
   text-align: center;
-  height: 500px;
+  min-height: 500px;
   width: 400px;
   margin: 20px;
   border-radius: 5%;
+
   background-color: #0080805e;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px 10px #e0e0e0;
   box-shadow: 10px 10px 10px #409292;
+
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .goBackButton {
@@ -86,8 +105,9 @@ input {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   margin: 20px 0 0 20px;
+  width: 94px;
 }
 
 .recipeBox {
@@ -98,7 +118,6 @@ input {
 }
 
 .ingredientsBox {
-  width: 300px;
   text-align: center;
   margin-bottom: 50px;
 }
@@ -138,4 +157,20 @@ input {
 
 .meal:hover {
   background-color: #e0e0e0;
+}
+
+.modalBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.modalButton {
+  margin-left: auto;
+  margin-bottom: auto;
+}
+
+.modalTitle {
+  margin-top: -35px;
+  margin-bottom: 0;
 }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../button/Button";
 import { RecipesList } from "../recipes/RecipesList";
 import { setRecipes } from "../../reducers/recipeSlice";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import s from '../../App.module.css';
 
 export const Form = () => {
@@ -12,8 +12,8 @@ export const Form = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isFetched, setIsFetched] = useState(false);
     const [message, setMessage] = useState('');
+    const recipes = useSelector(state => state.recipe.recipes);
     const dispatch = useDispatch();
-    const recipes = useSelector(state => state.recipe.recipes); 
 
     useEffect(() => {
         if (recipes && recipes.length > 0) {
@@ -32,11 +32,9 @@ export const Form = () => {
         }
     };
 
-    const handleGetDish = async () => {
+    const handlerGetDish = async () => {
         const arrayDishes = await fetchRecipes(inputDish);
         setDishes(arrayDishes);
-        setIsFetched(true);
-        setInputDish('');
         dispatch(setRecipes(arrayDishes));
     };
 
@@ -57,12 +55,14 @@ export const Form = () => {
 
     const handlerSubmit = (e) => {
         e.preventDefault();
+        setIsFetched(true);
+        setInputDish('');
     }
 
     return (
         <form onSubmit={handlerSubmit}>
             <input className="" type="text" value={inputDish} onChange={(e) => setInputDish(e.target.value)} placeholder="Salad" />
-            <Button className={s.button} handlerClick={handleGetDish}>search</Button>
+            <Button className={s.button} handlerClick={handlerGetDish}>search</Button>
             <div>
                 <RecipesList recipes={dishes} message={message} />
             </div>
@@ -70,6 +70,6 @@ export const Form = () => {
     )
 };
 
-Form.propTypes = {
-    recipies: PropTypes.array,
-}
+// Form.propTypes = {
+//     recipies: PropTypes.array,
+// }

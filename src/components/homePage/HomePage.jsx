@@ -4,10 +4,10 @@ import { NavLink } from 'react-router-dom'
 
 export const HomePage = () => {
   return (
-    <div>
-      <nav>
-        <NavLink to='/mealplanner'>Meal Planner</NavLink>
-        <NavLink to='/shoppingList'>Shopping List</NavLink>
+    <div style={{paddingTop: '30px'}}>
+      <nav style={{fontSize: '22px'}}>
+        <NavLink to='/mealplanner'style={{marginRight: '20px', color: 'teal'}}>Meal Planner</NavLink>
+        <NavLink to='/shoppinglist' style={{color: 'teal'}}>Shopping List</NavLink>
       </nav>
       <h1>Recipes</h1>
       <p>Here you can find many recipes for various dishes.</p>

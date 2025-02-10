@@ -4,10 +4,12 @@ const initialState = {
     recipes: [],
     mealPlan: [],
     shoppingList: [],
+    ingredientsState: {},
+    buttonState: {},
 };
 
 const recipeSlice = createSlice({
-    name: 'recipe', // имя редьюсера
+    name: 'recipe', 
     initialState,
     reducers: {
         setRecipes(state, action) {
@@ -17,16 +19,19 @@ const recipeSlice = createSlice({
             state.mealPlan.push(action.payload);
         },
         removeRecipeFromPlan: (state, action) => {
-            state.mealPlan = state.mealPlan.filter(item => item.strMeal !== action.payload);
+            state.mealPlan = state.mealPlan.filter(item => item.idMeal !== action.payload);
         },
         addIngredientsToList: (state, action) => {
-            state.shoppingList.push(action.payload);
+            state.shoppingList = [...state.shoppingList, action.payload]; // добавляет ингредиенты только по текущему блюду
         },
-        removeIngredientsFromList: (state, action) => {
-            state.shoppingList = state.shoppingList.filter(item => item.strMeal !== action.payload);
+        setIngredientsState: (state, action) => {
+            state.ingredientsState = { ...state.ingredientsState, [action.payload.dishName]: action.payload.checkedObj };
+        },
+        updateButtonState: (state, action) => {
+            state.buttonState = { ...state.buttonState, [action.payload]: !state.buttonState[action.payload] }
         },
     }
 });
 
-export const { setRecipes, addRecipeToPlan, addIngredientsToList, removeRecipeFromPlan, removeIngredientsFromList } = recipeSlice.actions;
+export const { setRecipes, addRecipeToPlan, addIngredientsToList, removeRecipeFromPlan, setIngredientsState, updateButtonState } = recipeSlice.actions;
 export default recipeSlice.reducer;

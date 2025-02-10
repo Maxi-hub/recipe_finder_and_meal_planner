@@ -4,7 +4,7 @@ export const RecipeCard = ({ item }) => {
 
     return (
         <>
-            <h2>{item.strMeal}</h2>
+            <h2 className={s.recipeTitle}>{item.strMeal}</h2>
             <img className={s.recipeImg} src={item.strMealThumb} alt={item.strMeal} />
         </>
     )
