@@ -7,7 +7,12 @@ export const ShoppingList = () => {
     const productList = useSelector(state => state.recipe.shoppingList);
     const navigate = useNavigate();
 
-    const listItems = productList.map(element => {
+    const sortedproductList = productList.filter(item => {
+        const value = Object.values(item)[0];
+        return value[1] === true;
+    });
+
+    const listItems = sortedproductList.map(element => {
         const key = Object.keys(element)[0];
         const value = element[key];
         return <li key={key}>
@@ -24,7 +29,7 @@ export const ShoppingList = () => {
         <div>
             <Button className={`${s.button} ${s.goBackButton}`} handlerClick={goBack}>Go back</Button>
             <h2>Mark the ingredients that you have already purchased</h2>
-            <ul style={{textAlign: 'justify'}}>{listItems}</ul>
+            <ul style={{ textAlign: 'justify' }}>{listItems}</ul>
         </div>
     )
 }

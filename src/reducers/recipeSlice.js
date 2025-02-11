@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const recipeSlice = createSlice({
-    name: 'recipe', 
+    name: 'recipe',
     initialState,
     reducers: {
         setRecipes(state, action) {
@@ -22,7 +22,7 @@ const recipeSlice = createSlice({
             state.mealPlan = state.mealPlan.filter(item => item.idMeal !== action.payload);
         },
         addIngredientsToList: (state, action) => {
-            state.shoppingList = [...state.shoppingList, action.payload]; // добавляет ингредиенты только по текущему блюду
+            state.shoppingList = action.payload; // добавляет ингредиенты пока только по текущему блюду
         },
         setIngredientsState: (state, action) => {
             state.ingredientsState = { ...state.ingredientsState, [action.payload.dishName]: action.payload.checkedObj };

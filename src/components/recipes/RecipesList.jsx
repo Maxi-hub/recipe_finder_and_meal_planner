@@ -8,7 +8,6 @@ import s from '../../App.module.css';
 export const RecipesList = ({ recipes, message }) => {
     const dishes = useSelector(state => state.recipe.mealPlan);
     const buttonState = useSelector(state => state.recipe.buttonState);
-    console.log(buttonState);
     const dispatch = useDispatch();
 
     const addToPlan = (dish) => {

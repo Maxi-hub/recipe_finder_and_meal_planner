@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../button/Button";
 import { RecipesList } from "../recipes/RecipesList";
 import { setRecipes } from "../../reducers/recipeSlice";
-// import PropTypes from "prop-types";
 import s from '../../App.module.css';
 
 export const Form = () => {
@@ -39,7 +38,10 @@ export const Form = () => {
     };
 
     useEffect(() => {
-        if (isFetched && dishes.length === 0) {
+        if (isFetched) {
+            setMessage('Loading...');
+        }
+        else if (isFetched && dishes.length === 0) {
             setMessage('The dish was not found for the specified query! Try another option.');
         } else {
             setMessage('');
@@ -69,7 +71,3 @@ export const Form = () => {
         </form>
     )
 };
-
-// Form.propTypes = {
-//     recipies: PropTypes.array,
-// }

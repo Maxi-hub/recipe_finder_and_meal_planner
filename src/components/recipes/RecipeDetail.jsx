@@ -8,8 +8,18 @@ export const RecipeDetail = () => {
     let listOfIngredients = [];
     const { dishName } = useParams();
     const { recipes } = useSelector(state => state.recipe);
+    const { ingredientsState } = useSelector(state => state.recipe);
+    const { shoppingList } = useSelector(state => state.recipe);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const mealIngredients = Object.values(ingredientsState);
+    const chechedElements = mealIngredients.map(el => {
+        return el.filter(obj => {
+            const values = Object.values(obj)[0];
+            return values[1] === true;
+        });
+    });
 
     const dish = recipes.find(item => item.strMeal === dishName);
 
@@ -29,19 +39,30 @@ export const RecipeDetail = () => {
 
     function changeValues() {
         const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
-        const checkedObj = checkboxes.map(checkbox => ({ 
-            [checkbox.id]: [checkbox.value, checkbox.checked], 
+        const checkedObj = checkboxes.map(checkbox => ({
+            [checkbox.id]: [checkbox.value, checkbox.checked],
         }));
-        console.log(checkedObj);
         dispatch(setIngredientsState({ dishName, checkedObj }));
-        dispatch(addIngredientsToList(checkedObj)); // shoppingList
+        dispatch(addIngredientsToList(checkedObj)); 
+        console.log(shoppingList);
+        console.log(checkedObj);
     };
 
     const listItems = listOfIngredients.map(element => {
         const key = Object.keys(element)[0];
         const value = element[key];
+
+        const isChecked = chechedElements.some(arr => {
+            return arr.some(obj => {
+                const values = Object.values(obj);
+                return Object.keys(obj)[0] === key && values[0][1] === true; 
+            });
+        });
+        console.log(isChecked);
+
+
         return <li key={key}>
-            <input type="checkbox" value={value} id={key} onChange={changeValues} />
+            <input type="checkbox" value={value} id={key} onChange={changeValues} checked={isChecked} />
             <label htmlFor={value}> {key} - {value}</label>
         </li>
     });
@@ -57,7 +78,7 @@ export const RecipeDetail = () => {
                     <p><b>Recipe:</b> {dish.strInstructions}</p>
                     <div className={s.ingredientsBox}>
                         <h3>Ingredients:</h3>
-                        <p>Mark the missing ingredients to add them to your <Link to={'/shoppinglist'}>Shopping list</Link>.</p>
+                        <p>Mark the missing ingredients to add them to your <Link to={'/shoppinglist'} style={{color: 'teal'}}>Shopping list</Link>.</p>
                         <ul className={s.ingredientsList}>
                             {listItems}
                         </ul>
