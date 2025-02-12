@@ -2,48 +2,82 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import s from '../../App.module.css';
 import { Button } from '../button/Button';
-import { setShoppingListState } from '../../reducers/recipeSlice';
+import { setIngredientsState, setShoppingListState } from '../../reducers/recipeSlice';
+import { useEffect, useState } from 'react';
 
 export const ShoppingList = () => {
+    let checkedObj = [];
     const productList = useSelector(state => state.recipe.ingredientsState);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { shoppingListState } = useSelector(state => state.recipe);
-    console.log(shoppingListState);
+    const [shoppingListItems, setShoppingListItems] = useState([]);
 
-    const shoppingListItems = Object.values(productList).map(arr => {
-        return arr.filter(item => {
-            const value = Object.values(item)[0];
-            return value[1] === true;
+    console.log(shoppingListState); // Массив объектов
+    console.log(productList); // объект с ключами и значениями(массив объектов) {'Sushi': [{},{},{}]}
+
+    useEffect(() => {
+        const initialShoppingListItems = Object.values(productList).map(arr => {
+            return arr.filter(item => {
+                const value = Object.values(item)[0];
+                return value[1] === true; 
+            });
         });
-    });
-    console.log(shoppingListItems);
+        setShoppingListItems(initialShoppingListItems);
+
+    }, [productList]); 
+
+     useEffect(() => {
+        if (shoppingListState.length > 0) {
+            setShoppingListItems([shoppingListState]);
+        } else {
+            setShoppingListItems([]);
+        }
+    }, [shoppingListState]);
+
+    
 
     function handleChange() {
         const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
-        const checkedObj = checkboxes.map(checkbox => ({
+        checkedObj = checkboxes.map(checkbox => ({
             [checkbox.id]: [checkbox.value, checkbox.checked],
         }));
+        console.log(checkedObj);
         dispatch(setShoppingListState(checkedObj));
     }
+
+
+    function handleClick(dishName) {
+        const updatedShoppingList = shoppingListItems.map(arr => {
+            return arr.filter(obj => Object.keys(obj)[0] !== dishName)
+        });
+        const flattenedList = updatedShoppingList.flat();
+        const newShoppingListState = flattenedList.map(obj => (
+            { [Object.keys(obj)[0]]: obj[Object.keys(obj)[0]] }
+        ));
+        console.log(newShoppingListState);
+        dispatch(setShoppingListState(newShoppingListState));
+
+        // dispatch(setIngredientsState({ dishName, }))
+    }
+
 
     const listItems = shoppingListItems.map(arr => {
         return (
             arr.map(obj => {
+                console.log(obj);
                 const key = Object.keys(obj)[0];
-                console.log(key);
                 const value = obj[key];
 
                 const checkedItems = shoppingListState.some(obj => {
-                   console.log(obj);
                     const values = Object.keys(obj)[0];
-                    console.log(values);
-                    return values === key &&  obj[values][1] === true;
+                    return values === key && obj[values][1] === true;
                 });
-            
+
                 return <li key={key}>
                     <input type="checkbox" value={value} id={key} onChange={handleChange} checked={checkedItems} />
                     <label htmlFor={value}> {key} - {value}</label>
+                    <button onClick={() => handleClick(key)}>Delete</button>
                 </li>
             })
         )
