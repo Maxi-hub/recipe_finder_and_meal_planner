@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     recipes: [],
     mealPlan: [],
-    shoppingList: [],
+    shoppingListState: [],
     ingredientsState: {},
     buttonState: {},
+    modalListState: [],
 };
 
 const recipeSlice = createSlice({
@@ -21,17 +22,20 @@ const recipeSlice = createSlice({
         removeRecipeFromPlan: (state, action) => {
             state.mealPlan = state.mealPlan.filter(item => item.idMeal !== action.payload);
         },
-        addIngredientsToList: (state, action) => {
-            state.shoppingList = action.payload; // добавляет ингредиенты пока только по текущему блюду
-        },
         setIngredientsState: (state, action) => {
             state.ingredientsState = { ...state.ingredientsState, [action.payload.dishName]: action.payload.checkedObj };
+        },
+        setShoppingListState(state, action) {
+            state.shoppingListState = action.payload;
         },
         updateButtonState: (state, action) => {
             state.buttonState = { ...state.buttonState, [action.payload]: !state.buttonState[action.payload] }
         },
+        setModalListState(state, action) {
+            state.modalListState = action.payload;
+        },
     }
 });
 
-export const { setRecipes, addRecipeToPlan, addIngredientsToList, removeRecipeFromPlan, setIngredientsState, updateButtonState } = recipeSlice.actions;
+export const { setRecipes, addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, setShoppingListState, updateButtonState, setModalListState } = recipeSlice.actions;
 export default recipeSlice.reducer;
