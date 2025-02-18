@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import s from '../../App.module.css';
 import { Button } from '../button/Button';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { ModalContent } from '../modalContent/ModalContent';
 
@@ -11,8 +11,13 @@ export const MealPlanner = () => {
   const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const dishes = useSelector(state => state.recipe.mealPlan);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { modalListState } = useSelector(state => state.recipe);
   const [stateModal, setStateModal] = useState({ day: '', mealType: '' });
+  const [listTargetMeal, setListTargetMeal] = useState([]);
   const navigate = useNavigate();
+
+  console.log(listTargetMeal);
+  console.log(stateModal);
 
   const customStyles = {
     content: {
@@ -27,8 +32,28 @@ export const MealPlanner = () => {
     },
   };
 
+  // useEffect(() => {
+
+  // }, [stateModal, listTargetMeal, modalListState])
+
+
   const openModal = (day, mealType) => {
     setStateModal({ day, mealType });
+    console.log(listTargetMeal);
+    const find = listTargetMeal.find(obj => obj.day === stateModal.day && obj.mealType === stateModal.mealType) || {};
+    console.log(find);
+    const newObj = Object.assign(find, modalListState);
+
+    // if (find) {
+    //   find = newObj;
+    // }
+    console.log(modalListState);
+    console.log(newObj);
+    // const arrMeal = Object.entries(modalListState);
+    // const checkedMeal = arrMeal.filter(arr => arr[1] === true);
+    // console.log(checkedMeal);
+    const dayDishes = Object.assign(stateModal, modalListState);
+    setListTargetMeal(prevState => [...prevState, dayDishes]);
     setModalIsOpen(true);
   };
 
@@ -72,7 +97,7 @@ export const MealPlanner = () => {
           ))}
         </div>
         <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
-          {<ModalContent dishes={dishes} closeModal={closeModal} stateModal={stateModal}/>}
+          {<ModalContent dishes={dishes} closeModal={closeModal} stateModal={stateModal} />}
         </Modal>
       </div>
     </div>

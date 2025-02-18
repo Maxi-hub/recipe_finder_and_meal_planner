@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     recipes: [],
     mealPlan: [],
-    shoppingListState: [],
+    shoppingListState: {},
     ingredientsState: {},
     buttonState: {},
     modalListState: [],
@@ -23,7 +23,10 @@ const recipeSlice = createSlice({
             state.mealPlan = state.mealPlan.filter(item => item.idMeal !== action.payload);
         },
         setIngredientsState: (state, action) => {
-            state.ingredientsState = { ...state.ingredientsState, [action.payload.dishName]: action.payload.checkedObj };
+            state.ingredientsState = { ...state.ingredientsState, [action.payload.mealName]: action.payload.checkedObj };
+        },
+        resetIngredientsState: (state) => {
+            state.ingredientsState = {}; 
         },
         setShoppingListState(state, action) {
             state.shoppingListState = action.payload;
@@ -37,5 +40,5 @@ const recipeSlice = createSlice({
     }
 });
 
-export const { setRecipes, addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, setShoppingListState, updateButtonState, setModalListState } = recipeSlice.actions;
+export const { setRecipes, addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, resetIngredientsState, setShoppingListState, updateButtonState, setModalListState } = recipeSlice.actions;
 export default recipeSlice.reducer;

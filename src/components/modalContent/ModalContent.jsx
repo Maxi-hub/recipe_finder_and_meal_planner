@@ -19,6 +19,7 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
             [id]: !checkedObj[id]
         };
         setCheckedObj(newCheckedObj);
+        console.log(newCheckedObj);
         dispatch(setModalListState(newCheckedObj));
     };
 
@@ -50,7 +51,7 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
                         </div>
                     )
                     : (
-                        <h3>Go back to the recipes and add your favorite dishes to your meal plan for the week.</h3>
+                        <h3>Go back to the recipes and add your favorite dishes to the meal plan for the week.</h3>
                     )
             }
         </div>

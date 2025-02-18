@@ -12,16 +12,17 @@ export const RecipeDetail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const mealIngredients = Object.values(ingredientsState);
-    const chechedElements = mealIngredients.map(el => {
+    console.log(Object.keys(ingredientsState)[0]);
+
+    const chechedElements = Object.values(ingredientsState).map(el => {
         return el.filter(obj => {
             const values = Object.values(obj)[0];
             return values[1] === true;
         });
     });
+    console.log(chechedElements);
 
     const dish = recipes.find(item => item.strMeal === dishName);
-
     for (let i = 1; i <= 20; i++) { //20 - max quantity of ingredients in API
         const ingredient = dish[`strIngredient${i}`];
         const quantityOfIngredient = dish[`strMeasure${i}`];
@@ -37,9 +38,11 @@ export const RecipeDetail = () => {
         const checkedObj = checkboxes.map(checkbox => ({
             [checkbox.id]: [checkbox.value, checkbox.checked],
         }));
-        dispatch(setIngredientsState({ dishName, checkedObj }));
+        let mealName = dish['strMeal'];
+        dispatch(setIngredientsState({ mealName, checkedObj }));
     }
 
+    console.log(listOfIngredients);
     const listItems = listOfIngredients.map(element => {
         const key = Object.keys(element)[0];
         const value = element[key];
