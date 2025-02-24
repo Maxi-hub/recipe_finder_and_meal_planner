@@ -32,34 +32,28 @@ export const MealPlanner = () => {
     },
   };
 
-  // useEffect(() => {
-
-  // }, [stateModal, listTargetMeal, modalListState])
-
-
   const openModal = (day, mealType) => {
     setStateModal({ day, mealType });
-    console.log(listTargetMeal);
-    const find = listTargetMeal.find(obj => obj.day === stateModal.day && obj.mealType === stateModal.mealType) || {};
-    console.log(find);
-    const newObj = Object.assign(find, modalListState);
-
-    // if (find) {
-    //   find = newObj;
-    // }
-    console.log(modalListState);
-    console.log(newObj);
-    // const arrMeal = Object.entries(modalListState);
-    // const checkedMeal = arrMeal.filter(arr => arr[1] === true);
-    // console.log(checkedMeal);
-    const dayDishes = Object.assign(stateModal, modalListState);
-    setListTargetMeal(prevState => [...prevState, dayDishes]);
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+      
+  // console.log(listTargetMeal);
+  // const find = listTargetMeal.find(obj => obj.day === stateModal.day && obj.mealType === stateModal.mealType) || {};
+  // console.log(find);
+  // const newObj = Object.assign(find, modalListState);
+  // console.log(modalListState);
+  // console.log(newObj);
+  // // const arrMeal = Object.entries(modalListState);
+  // // const checkedMeal = arrMeal.filter(arr => arr[1] === true);
+  // // console.log(checkedMeal);
+  // const dayDishes = Object.assign(stateModal, modalListState);
+  // setListTargetMeal(prevState => [...prevState, dayDishes]);
+
 
   function goBack() {
     navigate('/');

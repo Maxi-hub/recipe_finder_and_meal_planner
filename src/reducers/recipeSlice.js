@@ -6,7 +6,7 @@ const initialState = {
     shoppingListState: {},
     ingredientsState: {},
     buttonState: {},
-    modalListState: [],
+    modalListState: {},
 };
 
 const recipeSlice = createSlice({
