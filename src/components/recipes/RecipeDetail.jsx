@@ -12,15 +12,12 @@ export const RecipeDetail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    console.log(Object.keys(ingredientsState)[0]);
-
     const chechedElements = Object.values(ingredientsState).map(el => {
         return el.filter(obj => {
             const values = Object.values(obj)[0];
             return values[1] === true;
         });
     });
-    console.log(chechedElements);
 
     const dish = recipes.find(item => item.strMeal === dishName);
     for (let i = 1; i <= 20; i++) { //20 - max quantity of ingredients in API
@@ -42,8 +39,7 @@ export const RecipeDetail = () => {
         dispatch(setIngredientsState({ mealName, checkedObj }));
     }
 
-    console.log(listOfIngredients);
-    const listItems = listOfIngredients.map(element => {
+    const listItems = listOfIngredients.map((element, index) => {
         const key = Object.keys(element)[0];
         const value = element[key];
 
@@ -54,14 +50,14 @@ export const RecipeDetail = () => {
             });
         });
 
-        return <li key={key}>
+        return <li key={`${key}-${index}`}>
             <input type="checkbox" value={value} id={key} onChange={changeValues} checked={isChecked} />
             <label htmlFor={value}> {key} - {value}</label>
         </li>
     });
 
     function goBack() {
-        navigate('/');
+        navigate(-1);
     }
 
     return (

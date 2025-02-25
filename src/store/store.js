@@ -1,22 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import recipeReducer from "../reducers/recipeSlice";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";  // Используем localStorage
+import storage from "redux-persist/lib/storage";  
 
 const persistConfig = {
-    key: 'root', // Ключ для хранения в localStorage
-    storage, // Используем localStorage
+    key: 'root', 
+    storage, 
 }
 
 const persistedReducer = persistReducer(persistConfig, recipeReducer);
 
 export const store = configureStore({
     reducer: {
-        recipe: persistedReducer, // Используем редьюсер с Persist
+        recipe: persistedReducer, 
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-          serializableCheck: false, // Отключаем проверку сериализуемости
+          serializableCheck: false, 
         }),
     
 });

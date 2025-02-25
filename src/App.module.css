@@ -1,7 +1,3 @@
-li {
-  list-style-type: none;
-}
-
 h1 {
   margin: 0;
   padding: 20px;
@@ -10,6 +6,15 @@ h1 {
 
 a {
   text-decoration: none;
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 .App {
@@ -22,7 +27,26 @@ a {
   font-family: cursive;
 }
 
-input {
+.customStyles {
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper {
+  padding-top: 30px;
+}
+
+.navigation {
+  font-size: 22px;
+}
+
+.inputField {
   box-shadow: 5px 5px 5px #409292;
   border-radius: 6px;
   padding: 10px;
@@ -56,11 +80,8 @@ input {
 }
 
 .recipeImg {
-  /* width: 320px; */
   width: 100%;
-  /* height: 320px; */
   margin-bottom: 15px;
-  /* border-radius: 12%; */
 }
 
 .recipeImgDetail {
@@ -75,6 +96,7 @@ input {
   justify-content: center;
   align-items: center;
   margin-bottom: 0;
+  padding: 0;
 }
 
 .recipeDetailBox {
@@ -126,10 +148,21 @@ input {
   text-align: left;
 }
 
+.mealPlannerBlock {
+  margin: 0 10px;
+  background-color: #ffcd39;
+}
+
+.mealBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mealPlan {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: repeat(8, 1fr);
+  grid-template-rows: 0.5fr repeat(8, 1fr);
   width: 100%;
 }
 
@@ -142,6 +175,11 @@ input {
 .headerCell {
   font-weight: bold;
   background-color: #eee;
+  min-width: 98px;
+}
+
+.headerCell:first-child {
+  min-width: 60px;
 }
 
 .day {
@@ -152,7 +190,11 @@ input {
 .meal {
   cursor: pointer;
   background-color: #fafafa;
-  color: #ccc;
+  color: teal;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .meal:hover {
@@ -180,3 +222,70 @@ input {
   margin-bottom: 40px;
 }
 
+
+@media screen and (max-width: 768px) {
+
+  h1 {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 20px 10px;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  .wrapper {
+    padding-top: 10px;
+  }
+
+  .navigation {
+    font-size: 18px;
+  }
+
+  .inputField {
+    padding: 7px;
+    font-size: 14px;
+    width: 180px;
+    margin-right: 6px;
+  }
+
+  .button {
+    padding: 7px;
+    font-size: 14px;
+  }
+
+  .indentation {
+    margin: 0 20px;
+    font-size: 14px;
+  }
+
+  .textExp {
+    margin-bottom: 30px;
+  }
+
+  .mealPlan {
+    grid-template-columns: 0.4fr 1fr 1fr 1fr;
+  }
+
+  .recipeBlock {
+    min-height: 200px;
+    width: 200px;
+    margin: 5px;
+  }
+
+  .modalContent {
+    max-width: 300px;
+  }
+
+  .modalTitle {
+    width: 250px;
+  }
+
+  .recipeImgDetail {
+    width: 280px;
+  }
+}

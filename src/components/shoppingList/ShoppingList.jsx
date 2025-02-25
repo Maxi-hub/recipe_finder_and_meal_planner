@@ -12,12 +12,7 @@ export const ShoppingList = () => {
     const { shoppingListState } = useSelector(state => state.recipe);
     const [shoppingListItems, setShoppingListItems] = useState({});
 
-    console.log(productList);
-    console.log(shoppingListState);
-    console.log(shoppingListItems);
-
     function filteredObjs(dishesList) {
-        console.log(dishesList);
         const filteredObjs = Object.entries(dishesList).map(([nameOfDish, ingredients]) => {
             const filteredValues = ingredients.filter(ingredient =>
                 Object.values(ingredient)[0][1] === true
@@ -28,15 +23,12 @@ export const ShoppingList = () => {
     }
 
     useEffect(() => {
-        console.log(productList);
         const dishesObject = filteredObjs(productList);
         dispatch(setShoppingListState(dishesObject));
         setShoppingListItems(dishesObject);
     }, [productList]);
 
     useEffect(() => {
-        console.log(shoppingListItems);
-        console.log(Object.keys(shoppingListState).length > 0);
         if (Object.keys(shoppingListState).length > 0) {
             const dishesObject = filteredObjs(shoppingListState);
             setShoppingListItems(dishesObject);
@@ -46,7 +38,6 @@ export const ShoppingList = () => {
 
     function handleChange(event) {
         const { id, checked } = event.target;
-        console.log(id, checked);
 
         const updatedCheckedObj = Object.fromEntries(
             Object.entries(shoppingListItems).map(([dishName, ingredients]) => {
@@ -55,15 +46,14 @@ export const ShoppingList = () => {
                     const newIngredient = {
                         [ingredientName]: [...ingredient[ingredientName].slice(0, 2), checked]
                     };
-                    console.log(newIngredient);
+
                     return ingredientName === id ? newIngredient : ingredient;
                 });
-                console.log(updatedIngredients);
 
                 return [dishName, updatedIngredients];
             })
         );
-        console.log(updatedCheckedObj);
+
         setShoppingListItems(updatedCheckedObj);
         dispatch(setShoppingListState(updatedCheckedObj));
 
@@ -73,7 +63,6 @@ export const ShoppingList = () => {
                     const updatedIngredients = ingredients.map(ingredient => {
                         const ingredientName = Object.keys(ingredient)[0];
                         const foundIngredient = updatedCheckedObj[dishName].find(item => Object.keys(item)[0] === ingredientName);
-                        console.log(foundIngredient);
                         if (foundIngredient) {
                             return foundIngredient;
                         }
@@ -81,14 +70,12 @@ export const ShoppingList = () => {
                     })
                     return [dishName, updatedIngredients];
                 }
-                
                 return [dishName, ingredients];
             })
         );
-        console.log(updatedProductList);       
+
         Object.entries(updatedProductList).forEach(([mealName, checkedObj]) => {
-            console.log(mealName, checkedObj);
-            dispatch(setIngredientsState({mealName, checkedObj}));
+            dispatch(setIngredientsState({ mealName, checkedObj }));
         })
     }
 
@@ -100,16 +87,14 @@ export const ShoppingList = () => {
         }
     }
 
-    console.log(shoppingListItems);
     const listItems = Object.entries(shoppingListItems).map(([dishName, ingredients]) => {
         return (
             <div>
                 <h3 style={{ color: 'teal' }}>Ingredients for {dishName}</h3>
                 <ul className={s.shoppingList} >
-                    {ingredients.map(ingredient => {
+                    {ingredients.map((ingredient, index) => {
                         const key = Object.keys(ingredient)[0];
                         const value = ingredient[key][0];
-
                         const checkedItems = Object.entries(shoppingListState).some(([_, ingredients]) =>
                             ingredients.some(ingredient => {
                                 const ingredientName = Object.keys(ingredient)[0];
@@ -118,7 +103,7 @@ export const ShoppingList = () => {
                         );
 
                         return (
-                            <li key={key}>
+                            <li key={`${key}-${index}`}>
                                 <input
                                     type="checkbox"
                                     value={key}
@@ -141,8 +126,6 @@ export const ShoppingList = () => {
         navigate(-1);
     }
 
-    console.log(shoppingListItems);
-    console.log(listItems);
     return (
         <div>
             <Button className={`${s.button} ${s.goBackButton}`} handlerClick={goBack}>Go back</Button>

@@ -63,7 +63,7 @@ export const Form = () => {
 
     return (
         <form onSubmit={handlerSubmit}>
-            <input className="" type="text" value={inputDish} onChange={(e) => setInputDish(e.target.value)} placeholder="Salad" />
+            <input className={s.inputField} type="text" value={inputDish} onChange={(e) => setInputDish(e.target.value)} placeholder="Salad" />
             <Button className={s.button} handlerClick={handlerGetDish}>search</Button>
             <div>
                 <RecipesList recipes={dishes} message={message} />
