@@ -12,12 +12,9 @@ export const RecipeDetail = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const chechedElements = Object.values(ingredientsState).map(el => {
-        return el.filter(obj => {
-            const values = Object.values(obj)[0];
-            return values[1] === true;
-        });
-    });
+    const chechedElements = Object.entries(ingredientsState).flatMap(([key, arr]) => 
+        key === dishName ? arr.filter(obj => Object.values(obj)[0][1] === true) : []
+    );
 
     const dish = recipes.find(item => item.strMeal === dishName);
     for (let i = 1; i <= 20; i++) { //20 - max quantity of ingredients in API
@@ -33,9 +30,9 @@ export const RecipeDetail = () => {
     function changeValues() {
         const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
         const checkedObj = checkboxes.map(checkbox => ({
-            [checkbox.id]: [checkbox.value, checkbox.checked],
+              [checkbox.id]: [checkbox.value, checkbox.checked, undefined],
         }));
-        let mealName = dish['strMeal'];
+        const mealName = dish['strMeal'];
         dispatch(setIngredientsState({ mealName, checkedObj }));
     }
 
@@ -43,11 +40,8 @@ export const RecipeDetail = () => {
         const key = Object.keys(element)[0];
         const value = element[key];
 
-        const isChecked = chechedElements.some(arr => {
-            return arr.some(obj => {
-                const values = Object.values(obj);
-                return Object.keys(obj)[0] === key && values[0][1] === true;
-            });
+        const isChecked = chechedElements.some(obj => {
+            return Object.keys(obj)[0] === key && Object.values(obj)[0][0] === value;
         });
 
         return <li key={`${key}-${index}`}>

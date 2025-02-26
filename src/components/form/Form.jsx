@@ -33,6 +33,8 @@ export const Form = () => {
 
     const handlerGetDish = async () => {
         const arrayDishes = await fetchRecipes(inputDish);
+        // const arr = [...recipes, ...arrayDishes];
+        // const uniqueDishes = Array.from(new Map(arr.map(dish => [dish.idMeal, dish])).values());
         setDishes(arrayDishes);
         dispatch(setRecipes(arrayDishes));
     };

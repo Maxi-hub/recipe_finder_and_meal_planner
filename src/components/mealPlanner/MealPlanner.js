@@ -75,15 +75,15 @@ export const MealPlanner = () => {
       <div className={s.mealBox}>
         <div className={s.mealPlan}>
           <div className={`${s.cell} ${s.headerCell}`}></div>
-          <div className={`${s.cell} ${s.headerCell}`}>Breakfast</div>
-          <div className={`${s.cell} ${s.headerCell}`}>Lunch</div>
-          <div className={`${s.cell} ${s.headerCell}`}>Dinner</div>
+          {(['Breakfast', 'Lunch', 'Dinner']).map(mealType => (
+            <div className={`${s.cell} ${s.headerCell}`}>{mealType}</div>
+          ))}
           {weekDays.map((day, index) => (
             <React.Fragment>
               <div key={`${day}-${index}`} className={`${s.cell} ${s.day}`}>{day}</div>
               {(['breakfast', 'lunch', 'dinner']).map(mealType => (
                 <div
-                  key={`${day}-${mealType}`}
+                  key={`${index}-${mealType}`}
                   className={`${s.cell} ${s.meal}`}
                   onClick={() => openModal(day, mealType)}
                 >

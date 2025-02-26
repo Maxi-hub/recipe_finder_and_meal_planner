@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import s from '../../App.module.css';
 import { Button } from '../button/Button';
 import { resetIngredientsState, setIngredientsState, setShoppingListState } from '../../reducers/recipeSlice';
@@ -26,7 +26,7 @@ export const ShoppingList = () => {
         const dishesObject = filteredObjs(productList);
         dispatch(setShoppingListState(dishesObject));
         setShoppingListItems(dishesObject);
-    }, [productList]);
+    }, []);
 
     useEffect(() => {
         if (Object.keys(shoppingListState).length > 0) {
@@ -37,20 +37,23 @@ export const ShoppingList = () => {
 
 
     function handleChange(event) {
-        const { id, checked } = event.target;
+        const { id, checked, value } = event.target;
+        const eventObj = JSON.parse(value);
 
         const updatedCheckedObj = Object.fromEntries(
             Object.entries(shoppingListItems).map(([dishName, ingredients]) => {
-                const updatedIngredients = ingredients.map(ingredient => {
-                    const ingredientName = Object.keys(ingredient)[0];
-                    const newIngredient = {
-                        [ingredientName]: [...ingredient[ingredientName].slice(0, 2), checked]
-                    };
-
-                    return ingredientName === id ? newIngredient : ingredient;
-                });
-
-                return [dishName, updatedIngredients];
+                if (shoppingListItems[id]) {
+                    const updatedIngredients = ingredients.map(ingredient => {
+                        const ingredientName = Object.keys(ingredient)[0];
+                        const ingredientValue = Object.values(ingredient)[0][0];
+                        const newIngredient = {
+                            [ingredientName]: [...ingredient[ingredientName].slice(0, 2), checked]
+                        };
+                        return (dishName === id && ingredientName === Object.keys(eventObj)[0] && ingredientValue === Object.values(eventObj)[0][0]) ? newIngredient : ingredient;
+                    });
+                    return [dishName, updatedIngredients];
+                }
+                return [dishName, ingredients];
             })
         );
 
@@ -62,7 +65,8 @@ export const ShoppingList = () => {
                 if (updatedCheckedObj[dishName]) {
                     const updatedIngredients = ingredients.map(ingredient => {
                         const ingredientName = Object.keys(ingredient)[0];
-                        const foundIngredient = updatedCheckedObj[dishName].find(item => Object.keys(item)[0] === ingredientName);
+                        const ingredientValue = Object.values(ingredient)[0][0];
+                        const foundIngredient = updatedCheckedObj[dishName].find(item => Object.keys(item)[0] === ingredientName && Object.values(item)[0][0] === ingredientValue);
                         if (foundIngredient) {
                             return foundIngredient;
                         }
@@ -91,23 +95,24 @@ export const ShoppingList = () => {
         return (
             <div>
                 <h3 style={{ color: 'teal' }}>Ingredients for {dishName}</h3>
+                {/* <Link to={`/${dishName}`}></Link> */}
                 <ul className={s.shoppingList} >
                     {ingredients.map((ingredient, index) => {
                         const key = Object.keys(ingredient)[0];
                         const value = ingredient[key][0];
-                        const checkedItems = Object.entries(shoppingListState).some(([_, ingredients]) =>
+                        const checkedItems = Object.entries(shoppingListState).some(([dish, ingredients]) =>
                             ingredients.some(ingredient => {
                                 const ingredientName = Object.keys(ingredient)[0];
-                                return ingredientName === key && Array.isArray(ingredient[ingredientName]) && ingredient[ingredientName][2] === true;
+                                return dishName === dish && ingredientName === key && Array.isArray(ingredient[ingredientName]) && ingredient[ingredientName][2] === true;
                             })
                         );
 
                         return (
-                            <li key={`${key}-${index}`}>
+                            <li key={`${dishName}-${index}`}>
                                 <input
                                     type="checkbox"
-                                    value={key}
-                                    id={key}
+                                    value={JSON.stringify(ingredient)}
+                                    id={dishName}
                                     onChange={handleChange}
                                     checked={checkedItems}
                                 />
