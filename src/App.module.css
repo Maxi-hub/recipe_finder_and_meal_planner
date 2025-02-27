@@ -48,7 +48,8 @@ li {
 
 .wrapper {
   padding-top: 30px;
-  background-color: #ffcd39;
+  background-color: #ffcd39; 
+  position: relative;
 }
 
 .navigation {
@@ -221,7 +222,7 @@ li {
   -ms-grid-rows: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 0.5fr repeat(8, 1fr);
 
-  width: 100%;
+  width: 90%;
 }
 
 .mealPlan > * {
