@@ -9,7 +9,6 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
     const { modalListState } = useSelector(state => state.recipe);
     const [checkedObj, setCheckedObj] = useState({});
 
-    console.log(modalListState);
     useEffect(() => {
         const object = Object.entries(modalListState).reduce((acc, [day, mealType]) => {
             if (day === stateModal.day && mealType[stateModal.mealType]) {
@@ -19,40 +18,26 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
                 return acc;
             }
         }, {});
-        console.log(object);
         setCheckedObj(object);
     }, [modalListState])
 
-
-
     const handleCheckboxChange = (id) => {
-        console.log(checkedObj);
         const newCheckedObj = {
             ...checkedObj,
             [id]: !checkedObj[id]
         };
 
         setCheckedObj(newCheckedObj);
-        console.log(newCheckedObj);
 
         let obj = {
             [stateModal.day]: {
                 [stateModal.mealType]: newCheckedObj
             }
         };
-        console.log(obj);
-        console.log(modalListState);
 
         if (Object.keys(modalListState).length > 0) {
-
             const day = Object.keys(modalListState)[0];
-            console.log(day);
-
             const mealType = Object.keys(modalListState[day])[0];
-            console.log(mealType);
-
-            const meal = Object.values(mealType);
-            console.log(meal);
 
             if (stateModal.day === day) {
                 if (stateModal.mealType === mealType) {
@@ -95,7 +80,6 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
     const dishList = dishes.map(item => {
         const isChecked = checkedObj[item.idMeal] || false;
 
-
         return <li key={item.idMeal}>
             <input
                 type="checkbox"
@@ -108,23 +92,20 @@ export const ModalContent = ({ dishes, closeModal, stateModal }) => {
         </li>
     })
 
-
     return (
         <div className={s.modalBox}>
             <Button className={s.modalButton} handlerClick={closeModal}>Close</Button>
-            {
-                dishes.length > 0
-                    ? (
-                        <div key={Date.now()}>
-                            <h2 className={s.modalTitle}>Сhoose a dish for {stateModal.mealType} on {stateModal.day}</h2>
-                            <ul>{dishList}</ul>
-                        </div>
-                    )
-                    : (
-                        <h3>Go back to the recipes and add your favorite dishes to the meal plan for the week.</h3>
-                    )
+            {dishes.length > 0
+                ? (
+                    <div key={Date.now()}>
+                        <h2 className={s.modalTitle}>Сhoose a dish for {stateModal.mealType} on {stateModal.day}</h2>
+                        <ul>{dishList}</ul>
+                    </div>
+                )
+                : (
+                    <h3>Go back to the recipes and add your favorite dishes to the meal plan for the week.</h3>
+                )
             }
         </div>
     )
 }
-

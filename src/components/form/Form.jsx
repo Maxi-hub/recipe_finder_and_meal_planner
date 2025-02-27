@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../button/Button";
 import { RecipesList } from "../recipes/RecipesList";
-import { setRecipes } from "../../reducers/recipeSlice";
+import { setAllFoundRecipes, setRecipes } from "../../reducers/recipeSlice";
 import s from '../../App.module.css';
 
 export const Form = () => {
@@ -12,6 +12,7 @@ export const Form = () => {
     const [isFetched, setIsFetched] = useState(false);
     const [message, setMessage] = useState('');
     const recipes = useSelector(state => state.recipe.recipes);
+    const allFoundRecipes = useSelector(state => state.recipe.allFoundRecipes);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,10 +34,11 @@ export const Form = () => {
 
     const handlerGetDish = async () => {
         const arrayDishes = await fetchRecipes(inputDish);
-        // const arr = [...recipes, ...arrayDishes];
-        // const uniqueDishes = Array.from(new Map(arr.map(dish => [dish.idMeal, dish])).values());
         setDishes(arrayDishes);
         dispatch(setRecipes(arrayDishes));
+        const newArr = [...allFoundRecipes, ...arrayDishes];
+        const uniqValue = Array.from(new Map(newArr.map(dish => [dish.idMeal, dish])).values());
+        dispatch(setAllFoundRecipes(uniqValue))
     };
 
     useEffect(() => {

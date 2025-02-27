@@ -14,9 +14,9 @@ export const ShoppingList = () => {
 
     function filteredObjs(dishesList) {
         const filteredObjs = Object.entries(dishesList).map(([nameOfDish, ingredients]) => {
-            const filteredValues = ingredients.filter(ingredient =>
-                Object.values(ingredient)[0][1] === true
-            );
+            const filteredValues = ingredients.filter(ingredient => {
+                return Object.values(ingredient)[0][1] === true
+            });
             return (filteredValues.length > 0 ? { [nameOfDish]: filteredValues } : null);
         });
         return Object.assign({}, ...filteredObjs);
@@ -94,8 +94,7 @@ export const ShoppingList = () => {
     const listItems = Object.entries(shoppingListItems).map(([dishName, ingredients]) => {
         return (
             <div>
-                <h3 style={{ color: 'teal' }}>Ingredients for {dishName}</h3>
-                {/* <Link to={`/${dishName}`}></Link> */}
+                <Link to={`/${dishName}`}><h3 style={{ color: 'teal' }}>Ingredients for {dishName}</h3></Link>
                 <ul className={s.shoppingList} >
                     {ingredients.map((ingredient, index) => {
                         const key = Object.keys(ingredient)[0];
@@ -103,7 +102,8 @@ export const ShoppingList = () => {
                         const checkedItems = Object.entries(shoppingListState).some(([dish, ingredients]) =>
                             ingredients.some(ingredient => {
                                 const ingredientName = Object.keys(ingredient)[0];
-                                return dishName === dish && ingredientName === key && Array.isArray(ingredient[ingredientName]) && ingredient[ingredientName][2] === true;
+                                const ingredientValue = Object.values(ingredient)[0][0];
+                                return dishName === dish && ingredientName === key && ingredientValue === value && ingredient[ingredientName][2] === true;
                             })
                         );
 

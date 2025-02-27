@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    allFoundRecipes: [],
     recipes: [],
     mealPlan: [],
     shoppingListState: {},
@@ -13,6 +14,9 @@ const recipeSlice = createSlice({
     name: 'recipe',
     initialState,
     reducers: {
+        setAllFoundRecipes(state, action) {
+            state.allFoundRecipes = action.payload;
+        },
         setRecipes(state, action) {
             state.recipes = action.payload;
         },
@@ -40,5 +44,5 @@ const recipeSlice = createSlice({
     }
 });
 
-export const { setRecipes, addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, resetIngredientsState, setShoppingListState, updateButtonState, setModalListState } = recipeSlice.actions;
+export const { setAllFoundRecipes, setRecipes, addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, resetIngredientsState, setShoppingListState, updateButtonState, setModalListState } = recipeSlice.actions;
 export default recipeSlice.reducer;

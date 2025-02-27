@@ -9,6 +9,7 @@ export const RecipeDetail = () => {
     const { dishName } = useParams();
     const { recipes } = useSelector(state => state.recipe);
     const { ingredientsState } = useSelector(state => state.recipe);
+    const { allFoundRecipes } = useSelector(state => state.recipe);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -16,7 +17,7 @@ export const RecipeDetail = () => {
         key === dishName ? arr.filter(obj => Object.values(obj)[0][1] === true) : []
     );
 
-    const dish = recipes.find(item => item.strMeal === dishName);
+    const dish = allFoundRecipes.find(item => item.strMeal === dishName);
     for (let i = 1; i <= 20; i++) { //20 - max quantity of ingredients in API
         const ingredient = dish[`strIngredient${i}`];
         const quantityOfIngredient = dish[`strMeasure${i}`];

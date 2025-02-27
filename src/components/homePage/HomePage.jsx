@@ -12,7 +12,7 @@ export const HomePage = () => {
       </nav>
       <h1>Recipes</h1>
       <p className={s.indentation}> Here you can find many recipes for various dishes.</p>
-      <p className={`${s.indentation} ${s.textExp}`}>In the search bar, you can specify the name of the dish, the ingredient, or the category of the dish (for example, a cake).</p>
+      <p className={`${s.indentation} ${s.textExp}`}>In the search bar, specify the name of the dish, the ingredient, or the category of the dish (for example, a cake).</p>
       {<Form />}
     </div>
   )
