@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/recipe_finder_and_meal_planner/static/css/main.fc2c2a58.css",
-    "main.js": "/recipe_finder_and_meal_planner/static/js/main.40907f49.js",
+    "main.css": "/recipe_finder_and_meal_planner/static/css/main.8056fcce.css",
+    "main.js": "/recipe_finder_and_meal_planner/static/js/main.ca102a18.js",
     "index.html": "/recipe_finder_and_meal_planner/index.html",
-    "main.fc2c2a58.css.map": "/recipe_finder_and_meal_planner/static/css/main.fc2c2a58.css.map",
-    "main.40907f49.js.map": "/recipe_finder_and_meal_planner/static/js/main.40907f49.js.map"
+    "main.8056fcce.css.map": "/recipe_finder_and_meal_planner/static/css/main.8056fcce.css.map",
+    "main.ca102a18.js.map": "/recipe_finder_and_meal_planner/static/js/main.ca102a18.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc2c2a58.css",
-    "static/js/main.40907f49.js"
+    "static/css/main.8056fcce.css",
+    "static/js/main.ca102a18.js"
   ]
 }
