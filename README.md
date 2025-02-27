@@ -1,8 +1,10 @@
+**! Обратите внимание** cайт возможно будет работать только с vpn.
+Please note that the site can only work with VPN.
+
 # Recipe Finder & Meal Planner 
 
-Поиск рецептов и планировщик питания - это интерактивное веб-приложение для поиска рецептов, планирования питания на неделю и составления списка покупок. 
+Поиск рецептов и планировщик питания - это интерактивное веб-приложение для поиска рецептов, планирования питания на неделю и составления списка покупок.
 Recipe Search and Meal Planner is an interactive web application for finding recipes, planning meals for the week, and making a shopping list.
-
 
 ## Описание проекта / Description of the project
 
@@ -29,7 +31,7 @@ I have developed this application starting from the design of the structure and 
 
 The main functions that I have implemented:
 * Search for recipes by name, category, or ingredient.
-* * Displays the recipe of a dish with a list of ingredients.
+* Displays the recipe of a dish with a list of ingredients.
 * Saving the state
 * Adding meals to the meal plan with the ability to distribute them by day of the week and meal time.
 * Editing plans — you can change or delete dishes from the schedule.
