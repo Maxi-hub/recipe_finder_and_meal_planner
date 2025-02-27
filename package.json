@@ -19,7 +19,9 @@
     "start": "cross-env BROWSER=chrome react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +42,8 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
-  }
+    "cross-env": "^7.0.3",
+    "gh-pages": "^6.3.0"
+  },
+  "homepage": "https://Maxi-hub.github.io/recipe_finder_and_meal_planner"
 }
