@@ -1,5 +1,4 @@
-**! Обратите внимание** cайт возможно будет работать только с vpn.
-Please note that the site can only work with VPN.
+## ❗️ Пожалуйста, обратите внимание, что сайт может работать только с VPN. / Please note that the site can only work with VPN.
 
 # Recipe Finder & Meal Planner 
 
