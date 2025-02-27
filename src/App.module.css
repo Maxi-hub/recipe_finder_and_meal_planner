@@ -80,12 +80,7 @@ li {
 }
 
 .dishButton {
-  border: none;
-  -webkit-box-shadow: none;
-          box-shadow: none;
   margin-bottom: 15px;
-  -webkit-box-shadow: 3px 3px 5px 1px #409292;
-          box-shadow: 3px 3px 5px 1px #409292;
 }
 
 .recipeTitle {
@@ -133,10 +128,7 @@ li {
   margin: 20px;
   border-radius: 5%;
 
-  background-color: #0080805e;
   background-color: #fafafa;
-  -webkit-box-shadow: 0px 0px 10px 10px #e0e0e0;
-          box-shadow: 0px 0px 10px 10px #e0e0e0;
   -webkit-box-shadow: 10px 10px 10px #409292;
           box-shadow: 10px 10px 10px #409292;
 

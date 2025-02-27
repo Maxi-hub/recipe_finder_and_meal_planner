@@ -33,7 +33,7 @@ export const RecipesList = ({ recipes, message }) => {
                         </li>
                         <Button
                             className={`${s.button} ${s.dishButton}`}
-                            style={{ backgroundColor: buttonState[item.strMeal] ? "#ffcd39" : "white" }}
+                            style={{ backgroundColor: buttonState[item.strMeal] ? "#ffcd39" : "white", border: buttonState[item.strMeal] ?'none' : '1px solid teal' }}
                             handlerClick={() => addToPlan(item)}>
                             {buttonState[item.strMeal] ? "Added to your plan" : "Add to your plan"}
                         </Button>

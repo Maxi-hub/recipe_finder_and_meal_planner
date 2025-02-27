@@ -2,18 +2,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../button/Button';
 import s from '../../App.module.css';
-import { setIngredientsState } from '../../reducers/recipeSlice';
+import { addRecipeToPlan, removeRecipeFromPlan, setIngredientsState, updateButtonState } from '../../reducers/recipeSlice';
 
 export const RecipeDetail = () => {
     let listOfIngredients = [];
     const { dishName } = useParams();
-    const { recipes } = useSelector(state => state.recipe);
     const { ingredientsState } = useSelector(state => state.recipe);
     const { allFoundRecipes } = useSelector(state => state.recipe);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const chechedElements = Object.entries(ingredientsState).flatMap(([key, arr]) => 
+
+    const dishes = useSelector(state => state.recipe.mealPlan);
+    const buttonState = useSelector(state => state.recipe.buttonState);
+
+
+    const chechedElements = Object.entries(ingredientsState).flatMap(([key, arr]) =>
         key === dishName ? arr.filter(obj => Object.values(obj)[0][1] === true) : []
     );
 
@@ -31,7 +35,7 @@ export const RecipeDetail = () => {
     function changeValues() {
         const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
         const checkedObj = checkboxes.map(checkbox => ({
-              [checkbox.id]: [checkbox.value, checkbox.checked, undefined],
+            [checkbox.id]: [checkbox.value, checkbox.checked, undefined],
         }));
         const mealName = dish['strMeal'];
         dispatch(setIngredientsState({ mealName, checkedObj }));
@@ -55,6 +59,17 @@ export const RecipeDetail = () => {
         navigate(-1);
     }
 
+    const addToPlan = (dish) => {
+            const pointedDish = dishes.find(item => item.idMeal === dish.idMeal);
+            if (!pointedDish) {
+                dispatch(addRecipeToPlan(dish));
+            } else {
+                dispatch(removeRecipeFromPlan(dish.idMeal));
+            }
+    
+            dispatch(updateButtonState(dish.strMeal));
+        }
+
     return (
         <div className={s.recipeDetailBox}>
             <Button className={`${s.button} ${s.goBackButton}`} handlerClick={goBack}>Go back</Button>
@@ -73,6 +88,12 @@ export const RecipeDetail = () => {
                     </div>
                 </div>
             }
+            <Button
+                className={`${s.button} ${s.dishButton}`}
+                style={{ backgroundColor: buttonState[dish.strMeal] ? "#ffcd39" : "white", border: '1px solid teal' }}
+                handlerClick={() => addToPlan(dish)}>
+                {buttonState[dish.strMeal] ? "Added to your plan" : "Add to your plan"}
+            </Button>
         </div>
     )
 }

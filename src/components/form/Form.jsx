@@ -8,7 +8,7 @@ import s from '../../App.module.css';
 export const Form = () => {
     const [inputDish, setInputDish] = useState('');
     const [dishes, setDishes] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [isFetched, setIsFetched] = useState(false);
     const [message, setMessage] = useState('');
     const recipes = useSelector(state => state.recipe.recipes);
@@ -18,6 +18,8 @@ export const Form = () => {
     useEffect(() => {
         if (recipes && recipes.length > 0) {
             setDishes(recipes);
+        } else {
+            setDishes([]);
         }
     }, [recipes]);
 
@@ -33,16 +35,29 @@ export const Form = () => {
     };
 
     const handlerGetDish = async () => {
+        setIsLoading(true);
+        setIsFetched(true);
+
         const arrayDishes = await fetchRecipes(inputDish);
-        setDishes(arrayDishes);
-        dispatch(setRecipes(arrayDishes));
-        const newArr = [...allFoundRecipes, ...arrayDishes];
-        const uniqValue = Array.from(new Map(newArr.map(dish => [dish.idMeal, dish])).values());
-        dispatch(setAllFoundRecipes(uniqValue))
+        console.log(arrayDishes);
+
+        if (arrayDishes.length > 0) {
+            setDishes(arrayDishes);
+            dispatch(setRecipes(arrayDishes));
+
+            const newArr = [...allFoundRecipes, ...arrayDishes];
+            const uniqValue = Array.from(new Map(newArr.map(dish => [dish.idMeal, dish])).values());
+            dispatch(setAllFoundRecipes(uniqValue));
+        } else {
+            dispatch(setRecipes([]));
+        }
+
+
+        setIsLoading(false);
     };
 
     useEffect(() => {
-        if (isFetched) {
+        if (isLoading) {
             setMessage('Loading...');
         }
         else if (isFetched && dishes.length === 0) {
@@ -50,18 +65,13 @@ export const Form = () => {
         } else {
             setMessage('');
         }
-        setIsLoading(false);
-    }, [dishes, isFetched]);
-
-    if (isLoading) {
-        return (
-            <p>Loadind ...</p>
-        )
-    }
+    }, [dishes, isLoading, isFetched]);
 
     const handlerSubmit = (e) => {
         e.preventDefault();
-        setIsFetched(true);
+        if (!isLoading) {
+            handlerGetDish();
+        }
         setInputDish('');
     }
 

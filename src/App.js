@@ -6,22 +6,22 @@ import { MealPlanner } from './components/mealPlanner/MealPlanner';
 import { ShoppingList } from './components/shoppingList/ShoppingList';
 import Modal from 'react-modal';
 
-Modal.setAppElement('#root'); 
+Modal.setAppElement('#root');
 
 function App() {
 
   return (
-      <BrowserRouter basename="/recipe_finder_and_meal_planner">
-        <div className={s.App}>
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/:dishName' element={<RecipeDetail />} />
-            <Route path='/shoppinglist' element={<ShoppingList />} />
-            <Route path='/mealplanner' element={<MealPlanner />} />
-            <Route path='/*' element={<h1>Page not found!</h1>} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+    <BrowserRouter basename="/recipe_finder_and_meal_planner">
+      <div className={s.App}>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/:dishName' element={<RecipeDetail />} />
+          <Route path='/shoppinglist' element={<ShoppingList />} />
+          <Route path='/mealplanner' element={<MealPlanner />} />
+          <Route path='/*' element={<h1>Page not found!</h1>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
