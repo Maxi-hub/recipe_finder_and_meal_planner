@@ -11,7 +11,7 @@ Modal.setAppElement('#root');
 function App() {
 
   return (
-      <BrowserRouter>
+      <BrowserRouter basename="/recipe_finder_and_meal_planner">
         <div className={s.App}>
           <Routes>
             <Route path='/' element={<HomePage />} />
