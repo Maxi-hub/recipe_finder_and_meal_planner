@@ -2,7 +2,6 @@ import React from 'react'
 import { Form } from '../form/Form'
 import { NavLink } from 'react-router-dom'
 import s from '../../App.module.css';
-import { Button } from '../button/Button';
 import { HelpButton } from '../button/HelpButton';
 
 export const HomePage = () => {
