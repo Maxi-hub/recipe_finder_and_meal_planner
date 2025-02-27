@@ -125,8 +125,6 @@ export const ShoppingList = () => {
         )
     });
 
-
-
     function goBack() {
         navigate(-1);
     }
