@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/recipe_finder_and_meal_planner/static/css/main.b283d7fa.css",
+    "main.js": "/recipe_finder_and_meal_planner/static/js/main.73c406b8.js",
+    "index.html": "/recipe_finder_and_meal_planner/index.html",
+    "main.b283d7fa.css.map": "/recipe_finder_and_meal_planner/static/css/main.b283d7fa.css.map",
+    "main.73c406b8.js.map": "/recipe_finder_and_meal_planner/static/js/main.73c406b8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b283d7fa.css",
+    "static/js/main.73c406b8.js"
+  ]
+}
